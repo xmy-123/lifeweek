@@ -20,19 +20,32 @@
             <p>账号：0200 0127 0920 1646 336</p>
             <p>开户行：中国工商银行股份有限公司北京燕莎支行</p>
             <table class="shoptable">
-                <tr>
-                    <td><p>商品名称</p></td>
-                    <td><p>本店价</p></td>
-                    <td><p>购买数量</p></td>
-                    <td><p>小计</p></td>
-                    <td><p>操作</p></td>
+                <tr id="firsttr">
+                    <th>商品名称</th>
+                    <th>本店价</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="(i,k) of cartList" :key="k">
+                    <td>{{i.title}}</td>
+                    <td>{{i.price}}</td>
+                    <td>
+                        <button @click="addList(i)">+</button>
+                        <span>{{i.count}}</span>
+                        <button @click="minusList(i)">-</button>
+                    </td>
+                    <td>{{i.totlePrice}}</td>
+                    <td><button @click="del(i)">删除</button></td>
                 </tr>
                 <tr>
-                    <td colspan="3"><p class="xiaoji">购物金额小计<span>${{}}</span></p></td>
+                    <td><p class="xiaoji">购物金额小计￥:{{total}}.00<span></span></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
                     <td><button class="btn3">清空购物车</button></td>
                     <td><button class="btn3">更新购物车</button></td>
                 </tr>
-                <tr>
+                <tr id="lasttr">
                     <td colspan="4"><button class="btn4">继续购物</button></td>
                     <td><button class="btn5">去结算</button></td>
                 </tr>
@@ -78,8 +91,19 @@
     width: 100%;
     text-align: center;
     font-size: 12px;
-    height:90px
+    height:90px;
 }
+.shoptable>tr>th,.shoptable>tr>td{
+    width: 20%;
+    border: 1px solid #666;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+}
+#lasttr>td{
+    border: none 
+}
+
 .xiaoji{
     text-align: left;
     padding-left: 20px;
@@ -87,6 +111,48 @@
 .btn3{
     width:139px ;
     height: 21px;
+    margin: 5px;
     
 }
 </style>
+<script>
+import { mapMutations,mapGetters } from 'vuex'
+
+export default {
+    data(){
+        return{
+            cartList:[],           
+        }
+    },
+    methods:{
+        ...mapGetters(['_getShoppingCart']),
+        ...mapMutations(['_addCartList','_minusCartList','_del']),
+        getFromCart(i){
+            this.cartList = this._getShoppingCart() // state.unLogincartList
+        },
+        addList(i){
+            this._addCartList(i)  // 映射 ---> mapMutations _addCartList
+        },
+        minusList(i){
+            this._minusCartList(i) // 映射 ---> mapMutations _minusCartList
+        },
+        del(i){
+            this._del(i)
+        }
+
+    },
+    mounted(){
+        this.getFromCart()
+    },
+    computed:{
+        total(){
+            var allTotal = 0;
+            console.log(this.cartList)
+            for(var i of this.cartList){
+               allTotal += i.count*i.price
+            }
+            return allTotal
+        }
+    }
+}
+</script>

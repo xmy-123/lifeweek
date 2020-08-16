@@ -32,7 +32,9 @@
                 <p>2.收藏您关注的商品</p>
                 <p>3.收藏您关注的商品</p>
                 <p>4.订阅本店商品信息</p>
-                <p><button></button></p>
+                <p>
+                    <button @click="reg"></button>
+                </p>
             </div>
             <!-- 登录右边部分结束 -->
             <!-- 登录部分结束 -->
@@ -124,7 +126,7 @@ export default {
     },
     methods:{
         login(){     
-            this.axios.get("/user/login",{
+            this.axios.get("/users/login",{
             params:{ 
                 uname:this.uname,
                 upwd:this.upwd
@@ -143,6 +145,9 @@ export default {
           this.$router.push('/me');
             }
          });
+        },
+        reg(){
+            this.$router.push('/reg')
         }
     }
 }

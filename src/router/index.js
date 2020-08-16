@@ -2,21 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
 import Reg from '../views/Reg.vue'
 import ShopCar from '../views/ShopCar.vue'
 import Me from '../views/Me.vue'
 import Search from '../views/Search'
 
-// 测试用
-import Ajax1 from '../views/Ajax1.vue'
+
 
 Vue.use(VueRouter)
   const routes = [
-    {
-      path:'/ajax1',
-      component:Ajax1
-    },
   {
     path:'/search',
     component:Search
@@ -32,10 +26,6 @@ Vue.use(VueRouter)
   {
     path:'/reg',
     component:Reg
-  },
-  {
-    path:'/register',
-    component:Register
   },
   {
     path:'/login',

@@ -252,7 +252,7 @@ export default {
             this.i=i;
         },
         login(){     
-            this.axios.get("/user/login",{
+            this.axios.get("/users/login",{
             params:{ 
                 uname:this.uname,
                 upwd:this.upwd
@@ -332,7 +332,7 @@ export default {
             // 如果所有信息都为true,则进行提交;
             // this.axios.post(....).then(res=>{....})
             this.axios.post(
-                "/user/userReg",
+                "/users/userReg",
                 "uname="+this.uname+"&email="+this.email+"&upwd="+this.upwd,
                 ).then(result=>{
                    if(result.data.code=='202'){
@@ -348,7 +348,7 @@ export default {
         },
         found(){
             this.axios.post(
-                "/user/found",
+                "/users/found",
                 "uname="+this.uname+"&email="+this.email,
             ).then(result=>{
                 if(result.data.length!=0){

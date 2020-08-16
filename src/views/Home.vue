@@ -10,9 +10,9 @@
         </div>
         <ul class="img">
           <li v-for="(item,index) of product" :key="index">
-            <div>
-            <img :src="item.pic" alt="">
-            <p>￥:{{item.price}}</p>
+            <div @click="search(item)">
+            <img src="../assets/images/932_thumb_G_1571076349058.jpg" alt="">
+            <p >￥:{{item.price}}</p>
             </div>
           </li>
         </ul>
@@ -25,8 +25,8 @@
         </div>
          <ul class="img">
           <li v-for="(item,index) of product" :key="index">
-            <div>
-            <img :src="item.pic" alt="">
+            <div @click="search(item)">
+            <img src="../assets/images/932_thumb_G_1571076349058.jpg" alt="">
             <p>￥:{{item.price}}</p>
             </div>
           </li>
@@ -38,10 +38,10 @@
           <span>推荐编辑</span>
           <span><a href="#">更多>></a></span>
         </div>
-         <ul class="img">
+         <ul class="img" @click="search(item)">
           <li v-for="(item,index) of product" :key="index">
             <div>
-            <img :src="item.pic" alt="">
+            <img src="../assets/images/932_thumb_G_1571076349058.jpg" alt="">
             <p>￥:{{item.price}}</p>
             </div>
           </li>
@@ -117,6 +117,10 @@ export default {
     }
   },
   methods:{
+    search(item){
+      this.$store.commit('search',item)
+       this.$router.push('/search')
+    }
   },
   mounted(){
    this.axios.get('/index/product').then(result=>{
